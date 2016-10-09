@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+
+
+using namespace std;
+
+
+int n, m, a, b, visited[112345], ans;
+
+vector<int> graph[112345];
+
+
+int dfs(int current) 
+{
+	visited[current] = 1;
+
+	int ret = 1;
+	
+	for(int child: graph[current])
+
+		if(!visited[child])
+
+			ret += dfs(child);
+
+	return ret;
+
+}
+
+
+int main() 
+{
+
+	cin >> n >> m;
+
+	for(int i = 0; i < m; i += 1)
+ 	{
+		
+		cin >> a >> b;
+
+		graph[a].push_back(b);
+
+		graph[b].push_back(a);
+
+	}
+
+	for(int i = 0; i < n; i += 1)
+
+		if(!visited[i])
+
+			ans = max(ans, dfs(i));
+
+	cout << ans << endl;
+}
